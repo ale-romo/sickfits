@@ -29,11 +29,11 @@ const CREATE_ITEM_MUTATION = gql`
 
 class CreateItem extends Component {
   state= {
-    title: 'A Title',
-    description: 'A description',
-    image: 'dog.jpg',
-    largeImage: 'largedog.jpg',
-    price: 100,
+    title: '',
+    description: '',
+    image: '',
+    largeImage: '',
+    price: 0,
   }
 
   handleChange = (e) => {
@@ -75,7 +75,7 @@ class CreateItem extends Component {
           }}>
             <Error error={error} />
             <fieldset disabled={loading} aria-busy={loading}>
-              <label htmlFor="title">
+              <label htmlFor="file">
                 Image 
                 <input 
                   type="file"
@@ -85,7 +85,7 @@ class CreateItem extends Component {
                   required 
                   onChange={this.uploadFile}
                 />
-                {this.state.image && <img src={this.state.image} alt="Upload Preview" width="200" />}
+                {this.state.image && <img src={this.state.image} alt="Upload Preview" width="100%" />}
               </label>
               <label htmlFor="title">
                 Title 
