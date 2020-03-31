@@ -20,7 +20,7 @@ const SingleItemStyles = styled.div`
   }
   .details {
     margin: 3rem;
-    font-siz: 2rem;
+    font-size: 2rem;
   }
 `;
 
