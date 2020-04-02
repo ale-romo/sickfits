@@ -35,7 +35,6 @@ class RemoveFromCart extends React.Component {
     // 2. remove that item from the cart
     const cartItemId = payload.data.removeFromCart.id;
     data.me.cart = data.me.cart.filter(cartItem => cartItem.id !== cartItemId);
-    console.log(data.me.cart.length);
     // 3. write it back to the cache
     cache.writeQuery({ query: CURRENT_USER_QUERY, data });
   };
@@ -46,6 +45,14 @@ class RemoveFromCart extends React.Component {
         mutation={REMOVE_FROM_CART_MUTATION}
         variables={{ id: this.props.id }}
         update={this.update}
+        // refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+        optimisticResponse={{
+          __typename: 'Mutation',
+          removeFromCart: {
+            __typename: 'CartItem',
+            id: this.props.id,
+          }
+        }}
       >
         {(removeFromCart, { loading, error }) => (
           <BigButton

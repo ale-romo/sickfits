@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 
 const CURRENT_USER_QUERY = gql`
-  query CURRENT_USER_QUERY {
+  query {
     me {
       id
       email
@@ -32,7 +32,7 @@ const User = props => (
 
 User.propTypes = {
   children: PropTypes.func.isRequired,
-}
+};
 
 export default User;
 export { CURRENT_USER_QUERY };
