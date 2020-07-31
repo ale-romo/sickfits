@@ -7,6 +7,8 @@ import RemoveFromCart, { REMOVE_FROM_CART_MUTATION } from '../components/RemoveF
 import { CURRENT_USER_QUERY } from '../components/User';
 import { fakeUser, fakeCartItem } from '../lib/testUtils';
 
+global.alert = console.log;
+
 const mocks = [
   {
     request: { query: CURRENT_USER_QUERY },
@@ -20,7 +22,7 @@ const mocks = [
   },
   {
     request: {query: REMOVE_FROM_CART_MUTATION, variables: { id: 'abc123'} },
-    response: {
+    result: {
       data: {
         removeFromCart: {
           __typename: 'CartItem',
@@ -54,7 +56,11 @@ describe('<RemoveFromCart />', () => {
       </MockedProvider>
     );
     const res = await apolloClient.query({ query: CURRENT_USER_QUERY});
-    console.log(res);
     expect(res.data.me.cart).toHaveLength(1);
+    expect(res.data.me.cart[0].item.price).toBe(5000);
+    wrapper.find('button').simulate('click');
+    await wait();
+    const res2 = await apolloClient.query({ query: CURRENT_USER_QUERY});
+    expect(res2.data.me.cart).toHaveLength(0);
   });
 });
